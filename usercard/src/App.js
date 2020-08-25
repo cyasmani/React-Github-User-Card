@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
 import CardList from "./components/CardList"
+import axios from "axios"
 
 
 export default class App extends Component {
@@ -10,11 +10,26 @@ export default class App extends Component {
       data:[]
 
     }
+
+    
   }
+
+  componentDidMount(){
+    axios
+    .get("https://api.github.com/users")
+    .then((res) => {
+        this.setState({data: res.data})
+        console.log(this.state)})
+    .catch((err) => console.log("error", err))
+        
+}
+
   render() {
     return (
       <div>
-        <CardList data={this.state.data}/>
+
+        <CardList userinfo={this.state.data}/>
+        
         
         
       </div>
